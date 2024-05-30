@@ -14,12 +14,17 @@ export default function LoginPage() {
         <div className={"space-y-[24px]"}>
           <Input label="Email address" iconVariant="email" type="email" name="email" placeholder="e.g. alex@email.com" />
           <Input label="Password" iconVariant="password" type="password" name="password" placeholder="Enter your password" />
+          <button className={"w-full rounded-md bg-purple px-[27px] py-[11px] align-top text-[16px] font-bold leading-[150%] text-white"} type="submit">
+            Login
+          </button>
+          <div className={"text-center text-[16px] leading-[150%]"}>
+            <p className={"text-gray"}>Don't have an account?</p>
+            <a className={"text-purple"} href="/register">
+              Create account
+            </a>
+          </div>
         </div>
-
-        <button type="submit">Login</button>
       </form>
-      <p>Don't have an account?</p>
-      <a href="/register">Create account</a>
     </div>
   );
 }
