@@ -1,4 +1,6 @@
+"use client";
 import Image from "next/image";
+import SelectMenu from "@/components/SelectMenu";
 
 export default function Links() {
   return (
@@ -12,11 +14,19 @@ export default function Links() {
 
         <div className={"mt-6 rounded-md bg-gray-light px-5 py-[2.906rem]"}>
           <div className={"space-y-6"}>
-            <Image src="/images/illustration-empty.svg" className={"mx-auto"} alt="Add" width={124.77} height={80} />
-            <h2 className={"text-center align-top text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Let's get you started</h2>
-            <p className={"text-center text-[0.994rem] leading-[150%] text-gray"}>
-              Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We're here to help you share your profiles with everyone!
-            </p>
+            {/*<Image src="/images/illustration-empty.svg" className={"mx-auto"} alt="Add" width={124.77} height={80} />*/}
+            {/*<h2 className={"text-center align-top text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Let's get you started</h2>*/}
+            {/*<p className={"text-center text-[0.994rem] leading-[150%] text-gray"}>*/}
+            {/*  Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We're here to help you share your profiles with everyone!*/}
+            {/*</p>*/}
+
+            <div>
+              <span>Link #1</span>
+              <span>Remove</span>
+            </div>
+            <div>
+              <SelectMenu />
+            </div>
           </div>
         </div>
       </div>

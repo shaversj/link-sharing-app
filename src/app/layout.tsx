@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${instrumentSans.variable} grid w-[375px] place-items-center bg-gray-light`}>{children}</body>
+      <body className={`${instrumentSans.variable} grid w-[375px] place-items-center bg-gray-light font-instrumentSans`}>{children}</body>
     </html>
   );
 }
