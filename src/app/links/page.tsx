@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import SelectMenu from "@/components/SelectMenu";
+import LinkInput from "@/components/LinkInput";
 
 export default function Links() {
   return (
@@ -20,12 +21,14 @@ export default function Links() {
             {/*  Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We're here to help you share your profiles with everyone!*/}
             {/*</p>*/}
 
-            <div>
-              <span>Link #1</span>
-              <span>Remove</span>
+            <div className={"flex "}>
+              <Image src={"/images/icon-drag-and-drop.svg"} alt={"Drag and drop"} width={12} height={6} />
+              <span className={"pl-[8px] font-bold leading-[150%] text-gray"}>Link #1</span>
+              <span className={"ml-auto text-gray"}>Remove</span>
             </div>
-            <div>
+            <div className={"space-y-3"}>
               <SelectMenu />
+              <LinkInput />
             </div>
           </div>
         </div>
