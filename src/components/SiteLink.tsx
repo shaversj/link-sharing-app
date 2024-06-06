@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export default function SiteLink({ imagePath, siteName }: { imagePath: string; siteName: string }) {
-  const baseClass = "flex h-[56px] w-[237px] items-center rounded-lg bg-black px-4 ";
+  const baseClass = "flex h-[56px] w-[237px] items-center rounded-lg px-4 ";
   const backgroundVariants = {
     GitHub: "bg-black",
     twitter: "bg-blue",
