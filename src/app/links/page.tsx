@@ -2,8 +2,20 @@
 import Image from "next/image";
 import SelectMenu from "@/components/SelectMenu";
 import LinkInput from "@/components/LinkInput";
+import { useState } from "react";
+import LinksList from "@/components/LinksList";
 
 export default function Links() {
+  const [links, setLinks] = useState<{ name: string; link: string }[]>([
+    { name: "Twitter", link: "https://twitter.com" },
+    { name: "GitHub", link: "https://github.com" },
+    { name: "LinkedIn", link: "https://linkedin.com" },
+  ]);
+
+  function setLinksHandler() {
+    setLinks([...links, { name: "", link: "" }]);
+  }
+
   return (
     <div className={"px-4 antialiased"}>
       <div className={"rounded-md bg-white px-6 py-6"}>
@@ -13,25 +25,7 @@ export default function Links() {
         </div>
         <button className={"mt-[2.5rem] w-full rounded-md border border-purple px-[1.688rem] py-[0.688rem] text-[1rem] font-bold leading-[150%] text-purple"}>+ Add new Link</button>
 
-        <div className={"mt-6 rounded-md bg-gray-light px-5 py-[2.906rem]"}>
-          <div className={"space-y-6"}>
-            {/*<Image src="/images/illustration-empty.svg" className={"mx-auto"} alt="Add" width={124.77} height={80} />*/}
-            {/*<h2 className={"text-center align-top text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Let's get you started</h2>*/}
-            {/*<p className={"text-center text-[0.994rem] leading-[150%] text-gray"}>*/}
-            {/*  Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We're here to help you share your profiles with everyone!*/}
-            {/*</p>*/}
-
-            <div className={"flex "}>
-              <Image src={"/images/icon-drag-and-drop.svg"} alt={"Drag and drop"} width={12} height={6} />
-              <span className={"pl-[8px] font-bold leading-[150%] text-gray"}>Link #1</span>
-              <span className={"ml-auto text-gray"}>Remove</span>
-            </div>
-            <div className={"space-y-3"}>
-              <SelectMenu />
-              <LinkInput />
-            </div>
-          </div>
-        </div>
+        <LinksList links={links} />
       </div>
       <div className={"border border-white border-t-[#d9d9d9] bg-white p-4"}>
         <button className={"w-full rounded-md bg-[#d8ceff] px-[1.688rem] py-[0.688rem] align-top text-[1rem] font-bold leading-[150%] text-white"} type="submit">

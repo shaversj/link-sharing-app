@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function LinkInput() {
+export default function LinkInput({ inputValue }: { inputValue: string }) {
   return (
     <div>
       <label htmlFor="email" className="block text-xs font-medium leading-[150%] text-gray">
@@ -17,6 +17,7 @@ export default function LinkInput() {
           id="link"
           className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 pl-10 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           placeholder="e.g. https://github.com/"
+          value={inputValue ? inputValue : ""}
         />
       </div>
     </div>
