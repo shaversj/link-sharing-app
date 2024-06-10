@@ -82,12 +82,6 @@ function classNames(...classes: any) {
 export default function SelectMenu({ selectedLink }: { selectedLink: string }) {
   const [selected, setSelected] = useState(sites.find(selectedLink ? (site) => site.name === selectedLink : (site) => site.name === "GitHub") || sites[0]);
 
-  function setSelectedHandler({ site }: any) {
-    console.log(site);
-  }
-
-  console.log(selected);
-
   return (
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
