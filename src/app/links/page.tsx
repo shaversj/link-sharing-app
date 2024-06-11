@@ -10,6 +10,8 @@ export type LinkProps = {
 
 export type updateLinkHandlerProps = (id: number, name: string, url: string) => void;
 
+export type removeLinkHandlerProps = (id: number) => void;
+
 export default function Links() {
   const [links, setLinks] = useState<LinkProps[]>([
     { id: 1, name: "Twitter", url: "https://twitter.com" },
@@ -19,6 +21,11 @@ export default function Links() {
 
   function addLinkHandler() {
     setLinks([...links, { id: links.length + 1, name: "Github", url: "" }]);
+  }
+
+  function removeLinkHandler(id: number) {
+    const updatedLinks = links.filter((link) => link.id !== id);
+    setLinks(updatedLinks);
   }
 
   function updateLinkHandler(id: number, name: string, url: string) {
@@ -42,7 +49,7 @@ export default function Links() {
           + Add new Link
         </button>
 
-        <LinksList links={links} updateLinkHandler={updateLinkHandler} />
+        <LinksList links={links} updateLinkHandler={updateLinkHandler} removeLinkHandler={removeLinkHandler} />
       </div>
       <div className={"border border-white border-t-[#d9d9d9] bg-white p-4"}>
         <button className={"w-full rounded-md bg-[#d8ceff] px-[1.688rem] py-[0.688rem] align-top text-[1rem] font-bold leading-[150%] text-white"} type="submit">
