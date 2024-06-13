@@ -6,6 +6,9 @@ import { db } from "@/db/schema";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db),
   providers: [GitHub],
+  pages: {
+    signIn: "/login",
+  },
   callbacks: {
     jwt({ token, user }) {
       if (user) {

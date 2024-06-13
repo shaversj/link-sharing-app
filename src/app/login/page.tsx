@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Input from "@/components/Input";
+import SignInButton from "@/components/SignInButton";
 
 export default function LoginPage() {
   return (
@@ -9,6 +10,10 @@ export default function LoginPage() {
         <h2 className={"text-left align-top text-[24px] font-bold leading-[150%] text-dark-gray"}>Login</h2>
         <p className={"text-[15.9px] leading-[150%] text-gray"}>Add your details below to get back into the app</p>
       </div>
+
+      <SignInButton />
+
+      <h3 className="flex items-center gap-3 text-3xl tracking-wide text-gray before:h-px before:flex-1 before:bg-gray after:h-px after:flex-1 after:bg-gray">OR</h3>
 
       <form className={"pt-[40px]"}>
         <div className={"space-y-[24px]"}>
