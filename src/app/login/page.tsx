@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Input from "@/components/Input";
 import SignInButton from "@/components/SignInButton";
+import { signIn } from "../../../auth";
 
 export default function LoginPage() {
   return (
@@ -15,7 +16,13 @@ export default function LoginPage() {
 
       <h3 className="flex items-center gap-3 text-3xl tracking-wide text-gray before:h-px before:flex-1 before:bg-gray after:h-px after:flex-1 after:bg-gray">OR</h3>
 
-      <form className={"pt-[40px]"}>
+      <form
+        className={"pt-[40px]"}
+        action={async (formData) => {
+          "use server";
+          await signIn("credentials", formData);
+        }}
+      >
         <div className={"space-y-[24px]"}>
           <Input label="Email address" iconVariant="email" type="email" name="email" placeholder="e.g. alex@email.com" />
           <Input label="Password" iconVariant="password" type="password" name="password" placeholder="Enter your password" />

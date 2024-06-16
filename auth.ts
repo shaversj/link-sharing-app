@@ -2,10 +2,38 @@ import NextAuth from "next-auth";
 import GitHub from "@auth/core/providers/github";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db/schema";
+import Credentials from "@auth/core/providers/credentials";
+import { getUserFromDb } from "@/components/actions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db),
-  providers: [GitHub],
+  providers: [
+    GitHub,
+    Credentials({
+      credentials: {
+        email: {},
+        password: {},
+      },
+      authorize: async (credentials) => {
+        let user = null;
+
+        console.log("yes", credentials);
+
+        // logic to verify if user exists
+        if (typeof credentials.email === "string") {
+          user = await getUserFromDb(credentials.email);
+        }
+
+        if (!user) {
+          throw new Error("User not found.");
+        }
+
+        console.log(user);
+
+        return user ? user[0] : null;
+      },
+    }),
+  ],
   pages: {
     signIn: "/login",
   },
