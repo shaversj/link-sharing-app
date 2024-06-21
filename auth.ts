@@ -9,7 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db),
   providers: [
     GitHub,
-    Credentials({
+    /*    Credentials({
       credentials: {
         email: {},
         password: {},
@@ -32,12 +32,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         return user ? user[0] : null;
       },
-    }),
+    }),*/
   ],
   pages: {
     signIn: "/login",
   },
-  callbacks: {
+  /*  callbacks: {
     jwt({ token, user }) {
       if (user) {
         // User is available during sign-in
@@ -51,5 +51,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
-  },
+  },*/
 });

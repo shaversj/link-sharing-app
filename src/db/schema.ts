@@ -4,8 +4,20 @@ import Database from "better-sqlite3";
 import type { AdapterAccountType } from "next-auth/adapters";
 
 const sqlite = new Database("sqlite.db");
-
 export const db: BetterSQLite3Database = drizzle(sqlite);
+
+export const sites = sqliteTable("site", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name"),
+  backgroundColor: text("backgroundColor"),
+  imageLocation: text("imageLocation"),
+});
+
+export const links = sqliteTable("link", {
+  id: text("id").references(() => users.id, { onDelete: "cascade" }),
+  name: text("name"),
+  url: text("url"),
+});
 
 export const users = sqliteTable("user", {
   id: text("id")

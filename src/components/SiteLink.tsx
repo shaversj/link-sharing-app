@@ -1,27 +1,44 @@
 import Image from "next/image";
+import { getSiteByName } from "@/components/actions";
 
-export default function SiteLink({ imagePath, siteName }: { imagePath: string; siteName: string }) {
-  const baseClass = "flex h-[56px] w-[237px] items-center rounded-lg px-4 ";
-  const backgroundVariants = {
-    GitHub: "bg-black",
-    twitter: "bg-blue",
-    linkedin: "bg-blue",
-    facebook: "bg-blue",
-    instagram: "bg-purple",
-    dribbble: "bg-pink",
-    behance: "bg-blue",
-    website: "bg-black",
+export type Site = {
+  id: number;
+  name: string | null;
+  backgroundColor: string | null;
+  imageLocation: string | null;
+}[];
+
+export default async function SiteLink({ siteName }: { siteName: string }) {
+  const [site]: Site = await getSiteByName(siteName);
+
+  const backgroundColors: { [index: string]: string } = {
+    "1a1a1a": "bg-[#1a1a1a]",
+    "43b7e9": "bg-[#43b7e9]",
+    "2d68ff": "bg-[#2d68ff]",
+    black: "bg-black",
+    "8a1a50": "bg-[#8a1a50]",
+    "333333": "bg-[#333333]",
+    "2442ac": "bg-[#2442ac]",
+    "302267": "bg-[#302267]",
+    ffffff: "bg-[#ffffff]",
+    eb4a25: "bg-[#eb4a25]",
+    "0330d1": "bg-[#0330d1]",
+    ed3fc8: "bg-[$ed3fc8]",
+    ee3939: "bg-[#ee3939]",
   };
-
   return (
     <>
-      <div className={`${baseClass} ${backgroundVariants[siteName as keyof typeof backgroundVariants]}`}>
-        <Image src={imagePath} alt={"Github"} width={20} height={20} />
-        <span className={"pl-[8px] leading-[150%] text-white"}>{siteName}</span>
-        <svg className={"ml-auto"} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.66699 7.33355V8.66688H10.667L7.00033 12.3335L7.94699 13.2802L13.227 8.00022L7.94699 2.72021L7.00033 3.66688L10.667 7.33355H2.66699Z" fill="white" />
-        </svg>
-      </div>
+      {site && (
+        <>
+          <div className={`flex h-[56px] w-[237px] items-center rounded-lg px-4 ${backgroundColors[site?.backgroundColor || "black"]}`}>
+            <Image src={site?.imageLocation || ""} alt={"Site Image"} width={20} height={20} />
+            <span className={"pl-[8px] leading-[150%] text-white"}>{siteName}</span>
+            <svg className={"ml-auto"} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.66699 7.33355V8.66688H10.667L7.00033 12.3335L7.94699 13.2802L13.227 8.00022L7.94699 2.72021L7.00033 3.66688L10.667 7.33355H2.66699Z" fill="white" />
+            </svg>
+          </div>
+        </>
+      )}
     </>
   );
 }
