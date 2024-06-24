@@ -7,10 +7,12 @@ export default async function ProfileDetails() {
   const session = await auth();
   if (!session?.user) return <div>Not authenticated</div>;
 
+  console.log(session.user.id);
+
   return (
     <div className={"w-full border border-amber-800 px-6 font-instrumentSans"}>
       <div className={"flex gap-x-4 py-4"}>
-        <Link href={`/links/${session.user.id}`} className={"min-w-[159.5px] rounded-lg border border-purple py-[11px] font-semibold leading-[150%] text-purple"}>
+        <Link href={`/links/${session?.user.id}`} className={"min-w-[159.5px] rounded-lg border border-purple py-[11px] font-semibold leading-[150%] text-purple"}>
           Back to Editor
         </Link>
         <button className={"min-w-[159.5px] rounded-lg border border-purple bg-purple py-[11px] leading-[150%] text-white"}>Share Link</button>

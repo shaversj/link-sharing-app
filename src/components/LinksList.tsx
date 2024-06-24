@@ -1,5 +1,5 @@
 import LinkCard from "@/components/LinkCard";
-import { LinkProps, dispatchProps } from "@/app/links/[userid]/page";
+import { LinkProps, dispatchProps } from "@/app/links/[userId]/page";
 
 export default function LinksList({ links, dispatch }: { links: LinkProps[]; dispatch: dispatchProps }) {
   return (

@@ -1,7 +1,7 @@
 import SelectMenu from "@/components/SelectMenu";
 import LinkInput from "@/components/LinkInput";
 import Image from "next/image";
-import { dispatchProps, LinkProps } from "@/app/links/[userid]/page";
+import { dispatchProps, LinkProps } from "@/app/links/[userId]/page";
 
 export default function LinkCard({ link, dispatch, idx }: { link: LinkProps; dispatch: dispatchProps; idx: number }) {
   return (

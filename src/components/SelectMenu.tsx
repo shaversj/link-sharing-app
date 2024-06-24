@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { dispatchProps, LinkProps } from "@/app/links/[userid]/page";
+import { dispatchProps, LinkProps } from "@/app/links/[userId]/page";
 
 const sites = [
   {

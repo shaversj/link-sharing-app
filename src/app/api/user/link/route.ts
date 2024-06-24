@@ -1,4 +1,4 @@
-import { getLinks, saveOrUpdateLinks, deleteLinkById } from "@/components/actions";
+import { getLinks, saveOrUpdateLink, deleteLinkById } from "@/components/actions";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -14,10 +14,11 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const userId = searchParams.get("userId");
+  // const searchParams = request.nextUrl.searchParams;
+  // const userId = searchParams.get("userId");
   const res = await request.json();
-  await saveOrUpdateLinks(res.userId, res.links);
+  console.log(res);
+  await saveOrUpdateLink(res);
   return new Response("OK");
 }
 

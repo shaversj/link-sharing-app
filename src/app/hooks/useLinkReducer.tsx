@@ -1,10 +1,11 @@
 "use client";
 
 import { useReducer } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export type LinkProps = {
   id: string | null;
-  userid: string;
+  userId: string;
   name: string;
   url: string;
 };
@@ -18,7 +19,7 @@ export default function useLinkReducer({ initialLinks }: { initialLinks: LinkPro
       case "add":
         return [...state, action.payload];
       case "remove":
-        fetch(`/api/user/link?userId=${action.payload.userid}`, {
+        fetch(`/api/user/link?userId=${action.payload.userId}`, {
           method: "DELETE",
           body: JSON.stringify({ id: action.payload.id }),
         });
@@ -31,10 +32,9 @@ export default function useLinkReducer({ initialLinks }: { initialLinks: LinkPro
           return link;
         });
       case "save":
-        const userid = state ? state[0].userid : "";
-        fetch(`/api/user/link?userId=${userid}`, {
+        fetch(`/api/user/link`, {
           method: "POST",
-          body: JSON.stringify({ links: state }),
+          body: JSON.stringify({ links: action.payload }),
         });
         return state;
       default:
