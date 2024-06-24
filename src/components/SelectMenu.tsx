@@ -1,6 +1,7 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { dispatchProps, LinkProps } from "@/app/links/[userid]/page";
 
 const sites = [
   {
@@ -79,11 +80,16 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function SelectMenu({ selectedLink }: { selectedLink: string }) {
+export default function SelectMenu({ selectedLink, link, dispatch }: { selectedLink: string; link: LinkProps; dispatch: dispatchProps }) {
   const [selected, setSelected] = useState(sites.find(selectedLink ? (site) => site.name === selectedLink : (site) => site.name === "GitHub") || sites[0]);
 
+  function updateLinkHandler(e: any) {
+    setSelected(e);
+    dispatch({ type: "update", payload: { ...link, name: e.name } });
+  }
+
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={selected} onChange={(e) => updateLinkHandler(e)}>
       {({ open }) => (
         <>
           <Label className="block text-xs leading-[150%] text-dark-gray">Platform</Label>

@@ -12,8 +12,8 @@ async function addLinks() {
   const firstLinks = await db
     .insert(links)
     .values([
-      { id: "92d0bf23-9f8b-42c8-a4e9-1767fc9ff15d", name: "GitHub", url: "https://github.com/shaversj" },
-      { id: "92d0bf23-9f8b-42c8-a4e9-1767fc9ff15d", name: "Twitter", url: "https://twitter.com/shaversj" },
+      { userId: "92d0bf23-9f8b-42c8-a4e9-1767fc9ff15d", name: "GitHub", url: "https://github.com/shaversj" },
+      { userId: "92d0bf23-9f8b-42c8-a4e9-1767fc9ff15d", name: "Twitter", url: "https://twitter.com/shaversj" },
     ])
     .execute();
 }

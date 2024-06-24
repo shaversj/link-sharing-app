@@ -14,7 +14,8 @@ export const sites = sqliteTable("site", {
 });
 
 export const links = sqliteTable("link", {
-  id: text("id").references(() => users.id, { onDelete: "cascade" }),
+  id: text("id").primaryKey(),
+  userId: text("userId").references(() => users.id, { onDelete: "cascade" }),
   name: text("name"),
   url: text("url"),
 });

@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { useState } from "react";
-import { LinkProps, updateLinkHandlerProps } from "@/app/links/page";
+import { dispatchProps, LinkProps } from "@/app/links/[userid]/page";
 
-export default function LinkInput({ link, updateLinkHandler }: { link: LinkProps; updateLinkHandler: updateLinkHandlerProps }) {
+export default function LinkInput({ link, dispatch }: { link: LinkProps; dispatch: dispatchProps }) {
   const [linkValue, setLinkValue] = useState(link.url);
 
   function handleLinkChange(e: any) {
     setLinkValue(e.target.value);
-    updateLinkHandler(link.id, link.name, e.target.value);
+    dispatch({ type: "update", payload: { ...link, url: e.target.value } });
   }
 
   return (
@@ -26,7 +26,7 @@ export default function LinkInput({ link, updateLinkHandler }: { link: LinkProps
           id="link"
           className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 pl-10 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           placeholder="e.g. https://github.com/"
-          defaultValue={link.url}
+          defaultValue={link.url || ""}
           onChange={(e) => handleLinkChange(e)}
         />
       </div>

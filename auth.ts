@@ -3,7 +3,7 @@ import GitHub from "@auth/core/providers/github";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db/schema";
 import Credentials from "@auth/core/providers/credentials";
-import { getUserFromDb } from "@/components/actions";
+import { getUser } from "@/components/actions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db),

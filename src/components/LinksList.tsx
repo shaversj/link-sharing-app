@@ -1,11 +1,11 @@
 import LinkCard from "@/components/LinkCard";
-import { LinkProps, updateLinkHandlerProps, removeLinkHandlerProps } from "@/app/links/page";
+import { LinkProps, dispatchProps } from "@/app/links/[userid]/page";
 
-export default function LinksList({ links, updateLinkHandler, removeLinkHandler }: { links: LinkProps[]; updateLinkHandler: updateLinkHandlerProps; removeLinkHandler: removeLinkHandlerProps }) {
+export default function LinksList({ links, dispatch }: { links: LinkProps[]; dispatch: dispatchProps }) {
   return (
     <div className={"space-y-6"}>
-      {links.map((link) => (
-        <LinkCard key={link.id} link={link} updateLinkHandler={updateLinkHandler} removeLinkHandler={removeLinkHandler} />
+      {links.map((link, idx) => (
+        <LinkCard key={link.id} idx={idx} link={link} dispatch={dispatch} />
       ))}
     </div>
   );
