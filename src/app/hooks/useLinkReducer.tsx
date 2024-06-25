@@ -1,8 +1,6 @@
 "use client";
 
 import { useReducer } from "react";
-import { v4 as uuidv4 } from "uuid";
-
 export type LinkProps = {
   id: string | null;
   userId: string;
@@ -11,9 +9,6 @@ export type LinkProps = {
 };
 
 export default function useLinkReducer({ initialLinks }: { initialLinks: LinkProps[] }) {
-  // const session = await auth();
-  // const [state, setState] = useState(initialLinks);
-
   const reducer = (state: LinkProps[], action: { type: string; payload: LinkProps }) => {
     switch (action.type) {
       case "add":

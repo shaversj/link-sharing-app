@@ -17,8 +17,7 @@ export async function POST(request: NextRequest) {
   // const searchParams = request.nextUrl.searchParams;
   // const userId = searchParams.get("userId");
   const res = await request.json();
-  console.log(res);
-  await saveOrUpdateLink(res);
+  await saveOrUpdateLink(res.links);
   return new Response("OK");
 }
 

@@ -14,13 +14,8 @@ export type LinkProps = {
 export type dispatchProps = (action: { type: string; payload: LinkProps }) => void;
 
 export default function Links({ params }: { params: { userId: string } }) {
-  console.log(params.userId);
   const { links, dispatch } = useLinkReducer({
-    initialLinks: [
-      { id: uuidv4(), name: "Twitter", userId: params.userId, url: "https://twitter.com" },
-      { id: uuidv4(), name: "GitHub", userId: params.userId, url: "https://github.com" },
-      { id: uuidv4(), name: "LinkedIn", userId: params.userId, url: "https://linkedin.com" },
-    ],
+    initialLinks: [],
   });
 
   function submitHandler(e: any) {
@@ -30,11 +25,8 @@ export default function Links({ params }: { params: { userId: string } }) {
     });
   }
 
-  console.log(links);
-
   return (
     <div className={"px-4 antialiased"}>
-      poop
       <div className={"rounded-md bg-white px-6 py-6"}>
         <div className={"space-y-[0.5rem] pt-[4rem]"}>
           <h2 className={"text-left align-top text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Customize your links</h2>
