@@ -1,6 +1,9 @@
+"use client";
+
 import { v4 as uuidv4 } from "uuid";
 import LinksList from "@/components/LinksList";
 import useLinkReducer from "@/app/hooks/useLinkReducer";
+import Header from "@/components/Header";
 
 export type LinkProps = {
   id: string | null;
@@ -24,6 +27,7 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
   }
   return (
     <>
+      <Header activePage={"links"} />
       <div className={"px-4 antialiased"}>
         <div className={"rounded-md bg-white px-6 py-6"}>
           <div className={"space-y-[0.5rem] pt-[4rem]"}>
