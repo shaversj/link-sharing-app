@@ -6,7 +6,7 @@ export default function Profile() {
   return (
     <div>
       <Header activePage={"profile"} />
-      <div className={"px-4 antialiased"}>
+      <div className={"mt-4 px-4 antialiased"}>
         <div className={"rounded-md bg-white px-6 pb-6"}>
           <div className={"space-y-[0.5rem] pt-[4rem]"}>
             <h2 className={"text-left align-top text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Profile Details</h2>

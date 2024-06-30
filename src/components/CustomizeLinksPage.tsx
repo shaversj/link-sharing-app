@@ -28,7 +28,7 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
   return (
     <>
       <Header activePage={"links"} />
-      <div className={"px-4 antialiased"}>
+      <div className={"mt-4 px-4 antialiased"}>
         <div className={"rounded-md bg-white px-6 py-6"}>
           <div className={"space-y-[0.5rem] pt-[4rem]"}>
             <h2 className={"text-left align-top text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Customize your links</h2>

@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Header({ activePage }: { activePage: string }) {
   return (
     <>
-      <div className={"py-4 pl-6 pr-4"}>
+      <div className={"bg-white py-4 pl-6 pr-4"}>
         <nav className={"flex items-center"}>
           <div className={"mr-auto"}>
             <Image src="/images/logo-devlinks-small.svg" alt="logo" width={32} height={32} />

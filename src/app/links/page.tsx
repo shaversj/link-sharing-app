@@ -7,9 +7,7 @@ export default async function Links() {
   return (
     <>
       <div>
-        <div>
-          <CustomizeLinksPage userId={session?.user?.id || ""} />
-        </div>
+        <CustomizeLinksPage userId={session?.user?.id || ""} />
       </div>
     </>
   );
