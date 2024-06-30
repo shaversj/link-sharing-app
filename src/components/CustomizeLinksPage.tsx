@@ -19,6 +19,22 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
     initialLinks: [],
   });
 
+  function getLinksfromDB() {
+    return fetch(`/api/user/link?userId=${userId}`);
+  }
+
+  if (links.length === 0) {
+    getLinksfromDB().then((data) => {
+      data.json().then((data) => {
+        if (data.length > 0) {
+          data.map((link: LinkProps) => {
+            dispatch({ type: "add", payload: link });
+          });
+        }
+      });
+    });
+  }
+
   function submitHandler(e: any) {
     e.preventDefault();
     links.map((link) => {
