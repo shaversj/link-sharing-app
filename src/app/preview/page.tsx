@@ -2,7 +2,6 @@ import Image from "next/image";
 import { auth } from "../../../auth";
 import SiteLinkList from "@/components/SiteLinkList";
 import Link from "next/link";
-import Header from "@/components/Header";
 
 export default async function ProfileDetails() {
   const session = await auth();
@@ -11,10 +10,9 @@ export default async function ProfileDetails() {
   return (
     <>
       <div className={"w-[375px]"}>
-        <Header userId={session?.user.id || ""} activePage={"details"} />
-        <div className={"border border-amber-800 px-6 font-instrumentSans"}>
+        <div className={"px-6 font-instrumentSans"}>
           <div className={"flex gap-x-4 py-4"}>
-            <Link href={`/links/${session?.user.id}`} className={"min-w-[159.5px] rounded-lg border border-purple py-[11px] font-semibold leading-[150%] text-purple"}>
+            <Link href={`/links/`} className={"grid min-w-[159.5px] place-items-center rounded-lg border border-purple py-[11px] font-semibold leading-[150%] text-purple"}>
               Back to Editor
             </Link>
             <button className={"min-w-[159.5px] rounded-lg border border-purple bg-purple py-[11px] leading-[150%] text-white"}>Share Link</button>
