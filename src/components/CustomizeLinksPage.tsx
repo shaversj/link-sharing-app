@@ -19,8 +19,9 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
     initialLinks: [],
   });
 
-  function getLinksfromDB() {
-    return fetch(`/api/user/link?userId=${userId}`);
+  async function getLinksfromDB() {
+    const routeURL = new URL("http://localhost:3000/api/user/link?userId=" + userId);
+    return await fetch(routeURL);
   }
 
   if (links.length === 0) {

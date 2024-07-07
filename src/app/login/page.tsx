@@ -5,7 +5,7 @@ import { signIn } from "../../../auth";
 
 export default function LoginPage() {
   return (
-    <div className={"w-[375px] border p-8 font-instrumentSans antialiased"}>
+    <div className={"w-[375px] p-8 font-instrumentSans antialiased"}>
       <Image src="/images/logo-devlinks-large.svg" alt="Logo" width={182.5} height={40} />
       <div className={"space-y-[8px] pt-[64px]"}>
         <h2 className={"text-left align-top text-[24px] font-bold leading-[150%] text-dark-gray"}>Login</h2>
