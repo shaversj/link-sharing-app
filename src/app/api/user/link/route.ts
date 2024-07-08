@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   if (links.length > 0) {
     return Response.json(links);
   } else {
-    return new Response("No links found", { status: 404 });
+    return new Response(JSON.stringify({ message: "No links found" }), { status: 404 });
   }
 }
 

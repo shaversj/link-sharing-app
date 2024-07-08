@@ -44,7 +44,7 @@ async function addSites() {
 async function main() {
   await deleteLinks();
   await deleteSites();
-  await addLinks();
+  // await addLinks();
   await addSites();
 }
 

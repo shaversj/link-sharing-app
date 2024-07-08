@@ -1,15 +1,28 @@
+"use client";
+
 import Image from "next/image";
-import { getSiteByName } from "@/components/actions";
+import { useEffect, useState } from "react";
 
 export type Site = {
   id: number;
   name: string | null;
   backgroundColor: string | null;
   imageLocation: string | null;
-}[];
+};
 
-export default async function SiteLink({ siteName }: { siteName: string }) {
-  const [site]: Site = await getSiteByName(siteName);
+export default function SiteLink({ siteName, linkData }: { siteName: string; linkData: any }) {
+  const [site, setSite] = useState<Site>();
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const routeURL = new URL("http://localhost:3000/api/user/site?siteName=" + siteName);
+    fetch(routeURL)
+      .then((res) => res.json())
+      .then((data) => {
+        setSite(data);
+        setLoading(false);
+      });
+  }, []);
 
   const backgroundColors: { [index: string]: string } = {
     "1a1a1a": "bg-[#1a1a1a]",
@@ -26,12 +39,13 @@ export default async function SiteLink({ siteName }: { siteName: string }) {
     ed3fc8: "bg-[$ed3fc8]",
     ee3939: "bg-[#ee3939]",
   };
+
   return (
     <>
       {site && (
         <>
-          <div className={`flex h-[56px] w-[237px] items-center rounded-lg px-4 ${backgroundColors[site?.backgroundColor || "black"]}`}>
-            <Image id={"site_image"} className={""} src={site?.imageLocation || ""} alt={"Site Image"} width={20} height={20} />
+          <div className={`flex h-[56px] w-[237px] items-center rounded-lg px-4 ${backgroundColors[site.backgroundColor || "black"]}`}>
+            <Image id={"site_image"} className={""} src={site.imageLocation || ""} alt={"Site Image"} width={20} height={20} />
             <span className={"pl-[8px] leading-[150%] text-white"}>{siteName}</span>
             <svg className={"ml-auto"} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2.66699 7.33355V8.66688H10.667L7.00033 12.3335L7.94699 13.2802L13.227 8.00022L7.94699 2.72021L7.00033 3.66688L10.667 7.33355H2.66699Z" fill="white" />
