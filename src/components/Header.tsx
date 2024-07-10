@@ -10,7 +10,7 @@ export default function Header({ activePage }: { activePage: string }) {
             <Link href={`/links/`} className={"grid min-w-[159.5px] place-items-center rounded-lg border border-purple py-[11px] font-semibold leading-[150%] text-purple"}>
               Back to Editor
             </Link>
-            <a className={"min-w-[159.5px] rounded-lg border border-purple bg-purple py-[11px] leading-[150%] text-white"}>Share Link</a>
+            <a className={"flex min-w-[159.5px] justify-center rounded-lg border border-purple bg-purple py-[11px] leading-[150%] text-white"}>Share Link</a>
           </div>
         </>
       ) : (
