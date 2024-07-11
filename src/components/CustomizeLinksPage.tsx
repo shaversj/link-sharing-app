@@ -44,7 +44,7 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
   }
   return (
     <>
-      <Header activePage={"links"} />
+      <Header activePage={"links"} userId={userId} />
       <div className={"mt-4 px-4 antialiased"}>
         <div className={"rounded-md bg-white px-6 py-6"}>
           <div className={"space-y-[0.5rem] pt-[4rem]"}>

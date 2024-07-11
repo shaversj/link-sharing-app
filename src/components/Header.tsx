@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Header({ activePage }: { activePage: string }) {
+export default function Header({ activePage, userId }: { activePage: string; userId?: string }) {
   return (
     <>
       {activePage === "preview" ? (
@@ -33,7 +33,7 @@ export default function Header({ activePage }: { activePage: string }) {
                 </div>
               </Link>
 
-              <Link href={"/preview"} key={"poop"} className={"ml-auto"}>
+              <Link href={`/profile/${userId}`} className={"ml-auto"}>
                 <div className={`grid h-[42px] w-[52px] place-items-center rounded-md border border-purple`}>
                   <Image src="/images/icon-preview-header.svg" alt="logo" width={20} height={20} />
                 </div>

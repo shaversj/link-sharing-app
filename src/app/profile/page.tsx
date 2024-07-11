@@ -1,11 +1,15 @@
 import Image from "next/image";
 import Input from "@/components/Input";
 import Header from "@/components/Header";
+import { auth } from "../../../auth";
 
-export default function Profile() {
+export default async function Details() {
+  const session = await auth();
+  if (!session?.user) return <div>Not authenticated</div>;
+
   return (
     <div>
-      <Header activePage={"profile"} />
+      <Header activePage={"profile"} userId={session.user.id} />
       <div className={"mt-4 px-4 antialiased"}>
         <div className={"rounded-md bg-white px-6 pb-6"}>
           <div className={"space-y-[0.5rem] pt-[4rem]"}>
@@ -28,9 +32,9 @@ export default function Profile() {
 
           <div className={"mt-[2.5rem] rounded-lg bg-gray-light"}>
             <div className={"space-y-3 p-5"}>
-              <Input label="First name*" iconVariant="" type="email" name="email" placeholder="Enter first name.." />
-              <Input label="Last name*" iconVariant="" type="email" name="email" placeholder="Enter last name..." />
-              <Input label="Email" iconVariant="" type="email" name="email" placeholder="e.g. alex@email.com" />
+              <Input label="First name*" iconPath={""} type="email" name="email" placeholder="Enter first name.." />
+              <Input label="Last name*" iconPath={""} type="email" name="email" placeholder="Enter last name..." />
+              <Input label="Email" iconPath={""} type="email" name="email" placeholder="e.g. alex@email.com" />
             </div>
           </div>
         </div>

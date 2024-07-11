@@ -1,4 +1,4 @@
-import { auth } from "../../../auth";
+import { auth } from "../../../../auth";
 import { PreviewPage } from "@/components/PreviewPage";
 
 export default async function ProfileDetails() {
