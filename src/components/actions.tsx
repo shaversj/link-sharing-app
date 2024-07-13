@@ -4,7 +4,8 @@ import { db, links, SiteLink, sites, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function getUser(id: string) {
-  return await db.select().from(users).where(eq(users.id, id)).execute();
+  const result = await db.select().from(users).where(eq(users.id, id)).execute();
+  return result.length > 0 ? result[0] : null;
 }
 
 export async function getSiteByName(name: string) {
