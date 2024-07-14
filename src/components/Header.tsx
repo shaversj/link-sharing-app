@@ -1,7 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function Header({ activePage, userId }: { activePage: string; userId?: string }) {
+  function handleCopyURLClick() {
+    // Copy URL to clipboard
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+
+    // Show toast notification
+    toast((t) => (
+      <div className={"flex gap-x-2 font-instrumentSans text-white"}>
+        <Image src={"/images/icon-link-copied-to-clipboard.svg"} alt={"link copied"} width={20} height={20} />
+        <div>Link copied to clipboard!</div>
+      </div>
+    ));
+  }
+
   return (
     <>
       {activePage === "preview" ? (
@@ -10,7 +25,9 @@ export default function Header({ activePage, userId }: { activePage: string; use
             <Link href={`/links/`} className={"grid min-w-[159.5px] place-items-center rounded-lg border border-purple py-[11px] font-semibold leading-[150%] text-purple"}>
               Back to Editor
             </Link>
-            <a className={"flex min-w-[159.5px] justify-center rounded-lg border border-purple bg-purple py-[11px] leading-[150%] text-white"}>Share Link</a>
+            <button onClick={handleCopyURLClick} className={"flex min-w-[159.5px] justify-center rounded-lg border border-purple bg-purple py-[11px] leading-[150%] text-white"}>
+              Share Link
+            </button>
           </div>
         </>
       ) : (
