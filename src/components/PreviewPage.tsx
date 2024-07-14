@@ -9,7 +9,8 @@ type User = {
   id: string;
   name: string;
   email: string;
-  image: string;
+  image: string | null;
+  imageBlob: string;
 };
 
 export function PreviewPage({ userId, isAuthenticated }: { userId?: string; isAuthenticated: boolean }) {

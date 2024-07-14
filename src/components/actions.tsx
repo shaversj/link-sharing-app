@@ -5,6 +5,11 @@ import { eq } from "drizzle-orm";
 
 export async function getUser(id: string) {
   const result = await db.select().from(users).where(eq(users.id, id)).execute();
+  if (result.length > 0 && result[0].image && !result[0].image.startsWith("http")) {
+    const base64String = result[0].image as string;
+    const imageType = base64String.startsWith("data:image/png;base64,") ? "png" : "jpeg";
+    result[0].image = `data:image/${imageType};base64,${base64String}`;
+  }
   return result.length > 0 ? result[0] : null;
 }
 
@@ -37,4 +42,10 @@ export async function saveOrUpdateLink(link: SiteLink) {
 
 export async function deleteLinkById(id: string) {
   await db.delete(links).where(eq(links.id, id)).execute();
+}
+
+export async function saveImage(imageBlob: Blob, userId: string) {
+  const arrayBuffer = await imageBlob.arrayBuffer();
+  const base64Image = Buffer.from(arrayBuffer).toString("base64");
+  await db.update(users).set({ image: base64Image }).where(eq(users.id, userId)).execute();
 }
