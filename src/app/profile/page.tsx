@@ -8,6 +8,8 @@ export default async function Details() {
   const session = await auth();
   if (!session?.user) return <div>Not authenticated</div>;
 
+  const [firstName, lastName] = session.user.name?.split(" ") || ["", ""];
+
   return (
     <div>
       <Header activePage={"profile"} userId={session.user.id} />
@@ -23,8 +25,8 @@ export default async function Details() {
 
               {session.user.image ? (
                 <>
-                  <div id={"upload_pic"} className={"relative mt-4 flex size-[12.063rem] flex-col items-center justify-center rounded-md border border-black "}>
-                    <label htmlFor={"file"}>
+                  <div id={"upload_pic"} className={"mt-4 flex flex-col items-center justify-center rounded-md border border-black "}>
+                    <label htmlFor={"file"} className={"relative flex h-full w-full flex-col items-center justify-center"}>
                       <Image
                         src={session.user.image.startsWith("http") ? session.user.image : `data:image/png;base64,` + session.user.image}
                         alt={"Profile Picture"}
@@ -66,9 +68,9 @@ export default async function Details() {
 
           <div className={"mt-[2.5rem] rounded-lg bg-gray-light"}>
             <div className={"space-y-3 p-5"}>
-              <Input label="First name*" iconPath={""} type="email" name="email" placeholder="Enter first name.." />
-              <Input label="Last name*" iconPath={""} type="email" name="email" placeholder="Enter last name..." />
-              <Input label="Email" iconPath={""} type="email" name="email" placeholder="e.g. alex@email.com" />
+              <Input label="First name*" iconPath={""} type="email" name="firstName" placeholder="Enter first name.." value={firstName} />
+              <Input label="Last name*" iconPath={""} type="email" name="lastName" placeholder="Enter last name..." value={lastName} />
+              <Input label="Email" iconPath={""} type="email" name="email" placeholder="e.g. alex@email.com" value={session?.user.email || ""} />
             </div>
           </div>
         </div>
