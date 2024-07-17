@@ -38,7 +38,7 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
 
   function submitHandler(e: any) {
     e.preventDefault();
-    links.map((link) => {
+    links.map((link: LinkProps) => {
       dispatch({ type: "save", payload: link });
     });
   }

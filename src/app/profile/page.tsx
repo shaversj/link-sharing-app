@@ -25,7 +25,7 @@ export default async function Details() {
 
               {session.user.image ? (
                 <>
-                  <div id={"upload_pic"} className={"mt-4 flex flex-col items-center justify-center rounded-md border border-black "}>
+                  <div id={"upload_pic"} className={"relative mt-4 flex flex-col items-center justify-center rounded-md border border-black "}>
                     <label htmlFor={"file"} className={"relative flex h-full w-full flex-col items-center justify-center"}>
                       <Image
                         src={session.user.image.startsWith("http") ? session.user.image : `data:image/png;base64,` + session.user.image}

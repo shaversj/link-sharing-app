@@ -1,5 +1,8 @@
 "use client";
 
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
 export default function InputFile({ userId }: { userId?: string }) {
   function handleImageUpload(e: any) {
     // Upload image to server
@@ -11,6 +14,7 @@ export default function InputFile({ userId }: { userId?: string }) {
       method: "POST",
       body: formData,
     });
+    redirect("http://localhost:3000/profile");
   }
   return (
     <>

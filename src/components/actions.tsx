@@ -20,6 +20,7 @@ export async function getSiteByName(name: string) {
 export async function updateLinkById(id: string, name: string, url: string) {
   const link = await db.select().from(links).where(eq(links.id, id)).execute();
   if (link.length > 0) {
+    console.log("Updating link", id, name, url);
     await db.update(links).set({ name, url }).where(eq(links.id, id)).execute();
   } else {
     await db.insert(links).values([{ id, name, url }]).execute();
