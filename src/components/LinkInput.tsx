@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { dispatchProps, LinkProps } from "@/app/links/[userId]/page";
+import { dispatchProps, LinkProps } from "@/components/CustomizeLinksPage";
 
 export default function LinkInput({ link, dispatch }: { link: LinkProps; dispatch: dispatchProps }) {
   const [linkValue, setLinkValue] = useState(link.url);
