@@ -1,19 +1,14 @@
 import SelectMenu from "@/components/SelectMenu";
 import LinkInput from "@/components/LinkInput";
 import Image from "next/image";
-import { dispatchProps, LinkProps } from "@/app/links/[userId]/page";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import { dispatchProps, LinkProps } from "@/components/CustomizeLinksPage";
 
 export default function LinkCard({ link, dispatch, idx }: { link: LinkProps; dispatch: dispatchProps; idx: number }) {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: link.id });
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-
+  function removeLinkHandler() {
+    dispatch({ type: "remove", payload: link });
+  }
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className={"mt-6 rounded-md bg-gray-light px-5 py-5"}>
+    <div className={"mt-6 rounded-md bg-gray-light px-5 py-5"}>
       <div className={"space-y-6"}>
         <div className={"flex"}>
           <Image src={"/images/icon-drag-and-drop.svg"} alt={"Drag and drop"} width={12} height={6} />

@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import LinksList from "@/components/LinksList";
 import useLinkReducer from "@/app/hooks/useLinkReducer";
 import Header from "@/components/Header";
+import { useEffect } from "react";
 
 export type LinkProps = {
   id: string | null;
@@ -15,26 +16,26 @@ export type LinkProps = {
 export type dispatchProps = (action: { type: string; payload: LinkProps }) => void;
 
 export default function CustomizeLinksPage({ userId }: { userId: string }) {
-  const { links, dispatch } = useLinkReducer({
-    initialLinks: [],
-  });
-
   async function getLinksfromDB() {
     const routeURL = new URL("http://localhost:3000/api/user/link?userId=" + userId);
     return await fetch(routeURL);
   }
 
-  if (links.length === 0) {
+  const { links, dispatch } = useLinkReducer({
+    initialLinks: [],
+  });
+
+  useEffect(() => {
     getLinksfromDB().then((data) => {
       data.json().then((data) => {
         if (data.length > 0) {
-          data.map((link: LinkProps) => {
+          data.forEach((link: LinkProps) => {
             dispatch({ type: "add", payload: link });
           });
         }
       });
     });
-  }
+  }, []);
 
   function submitHandler(e: any) {
     e.preventDefault();
@@ -42,6 +43,7 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
       dispatch({ type: "save", payload: link });
     });
   }
+
   return (
     <>
       <Header activePage={"links"} userId={userId} />
