@@ -2,6 +2,7 @@
 
 import { db, links, SiteLink, sites, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getUser(id: string) {
   const result = await db.select().from(users).where(eq(users.id, id)).execute();
@@ -37,6 +38,7 @@ export async function saveOrUpdateLink(link: SiteLink) {
   if (existingLinkIds.includes(link.id || "")) {
     await updateLinkById(link.id || "", link.name || "", link.url || "");
   } else {
+    link.id = uuidv4();
     await db.insert(links).values(link).execute();
   }
 }
@@ -49,4 +51,14 @@ export async function saveImage(imageBlob: Blob, userId: string) {
   const arrayBuffer = await imageBlob.arrayBuffer();
   const base64Image = Buffer.from(arrayBuffer).toString("base64");
   await db.update(users).set({ image: base64Image }).where(eq(users.id, userId)).execute();
+}
+
+export async function deleteAllLinks(userId: string) {
+  await db.delete(links).where(eq(links.userId, userId)).execute();
+}
+
+export async function removeAndUpdateLinks(userId: string, links: SiteLink[]) {
+  await deleteAllLinks(userId);
+  links.forEach((link) => (link.id = uuidv4()));
+  links.forEach((link) => saveOrUpdateLink(link));
 }

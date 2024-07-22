@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
-import { getLinks } from "@/components/actions";
+import { deleteAllLinks, getLinks, removeAndUpdateLinks } from "@/components/actions";
 
-export async function POST(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const userId = searchParams.get("userId");
   const links = await getLinks(userId || "");
@@ -11,4 +11,18 @@ export async function POST(request: NextRequest) {
   } else {
     return new Response(JSON.stringify({ message: "No links found" }), { status: 404 });
   }
+}
+
+export async function DELETE(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const userId = searchParams.get("userId");
+  await deleteAllLinks(userId || "");
+  return new Response("OK");
+}
+
+export async function POST(request: Request) {
+  const res = await request.json();
+  await deleteAllLinks(res.userId || "");
+  await removeAndUpdateLinks(res.userId || "", res.links);
+  return new Response("OK");
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useReducer } from "react";
+
 export type LinkProps = {
   id: string | null;
   userId: string;
@@ -8,8 +9,15 @@ export type LinkProps = {
   url: string;
 };
 
+export type Action =
+  | { type: "add"; payload: LinkProps }
+  | { type: "remove"; payload: LinkProps }
+  | { type: "update"; payload: LinkProps }
+  | { type: "save"; payload: LinkProps[] }
+  | { type: "move"; payload: { fromIndex: number; toIndex: number } };
+
 export default function useLinkReducer({ initialLinks }: { initialLinks: LinkProps[] }) {
-  const reducer = (state: LinkProps[], action: { type: string; payload: LinkProps }) => {
+  const reducer = (state: LinkProps[], action: Action) => {
     switch (action.type) {
       case "add":
         return [...state, action.payload];
@@ -27,11 +35,18 @@ export default function useLinkReducer({ initialLinks }: { initialLinks: LinkPro
           return link;
         });
       case "save":
-        fetch(`/api/user/link`, {
+        fetch(`/api/user/links`, {
           method: "POST",
-          body: JSON.stringify({ links: action.payload }),
+          body: JSON.stringify({ userId: state[0].userId, links: action.payload }),
         });
+        state = action.payload;
         return state;
+      case "move":
+        const { fromIndex, toIndex } = action.payload;
+        const updatedLinks = [...state];
+        const [movedLink] = updatedLinks.splice(fromIndex, 1);
+        updatedLinks.splice(toIndex, 0, movedLink);
+        return updatedLinks;
       default:
         return state;
     }
