@@ -3,7 +3,7 @@ import LinkInput from "@/components/LinkInput";
 import Image from "next/image";
 import { dispatchProps, LinkProps } from "@/components/CustomizeLinksPage";
 import { useDrag, useDrop } from "react-dnd";
-import React, { useRef } from "react";
+import React, { LegacyRef, useRef } from "react";
 
 export default function LinkCard({ link, dispatch, idx, moveCard }: { link: LinkProps; dispatch: dispatchProps; idx: number; moveCard: any }) {
   function removeLinkHandler() {
@@ -34,7 +34,7 @@ export default function LinkCard({ link, dispatch, idx, moveCard }: { link: Link
   const dragDropRef = drag(dropRef(ref));
 
   return (
-    <div ref={dragDropRef} className={"mt-6 rounded-md bg-gray-light px-5 py-5"} style={{ opacity: isDragging ? 0.5 : 1 }}>
+    <div ref={dragDropRef as LegacyRef<HTMLDivElement>} className={"mt-6 rounded-md bg-gray-light px-5 py-5"} style={{ opacity: isDragging ? 0.5 : 1 }}>
       <div className={"space-y-6"}>
         <div className={"flex"}>
           <Image src={"/images/icon-drag-and-drop.svg"} alt={"Drag and drop"} width={12} height={6} />
