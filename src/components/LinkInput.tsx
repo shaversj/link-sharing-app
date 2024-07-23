@@ -1,14 +1,18 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { dispatchProps, LinkProps } from "@/components/CustomizeLinksPage";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function LinkInput({ link, dispatch }: { link: LinkProps; dispatch: dispatchProps }) {
   const [linkValue, setLinkValue] = useState(link.url);
-
-  function handleLinkChange(e: any) {
-    setLinkValue(e.target.value);
-    dispatch({ type: "update", payload: { ...link, url: e.target.value } });
-  }
+  const debounced = useDebouncedCallback(
+    useCallback((value) => {
+      setLinkValue(value);
+      dispatch({ type: "update", payload: { ...link, url: value } });
+    }, []),
+    700,
+    { maxWait: 2000 },
+  );
 
   return (
     <div>
@@ -27,7 +31,7 @@ export default function LinkInput({ link, dispatch }: { link: LinkProps; dispatc
           className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 py-1.5 pl-10 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           placeholder="e.g. https://github.com/"
           defaultValue={link.url || ""}
-          onChange={(e) => handleLinkChange(e)}
+          onChange={(e) => debounced(e.target.value)}
         />
       </div>
     </div>
