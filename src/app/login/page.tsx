@@ -5,14 +5,14 @@ import { signIn } from "../../../auth";
 
 export default function LoginPage() {
   return (
-    <div className={"grid h-full place-items-center border border-black"}>
-      <div className={"md:w-[478px] md:bg-white w-[375px] border border-black p-8 font-instrumentSans antialiased"}>
-        <div className={"md:mb-[51px] md:px-0 md:h-[91px] md:w-[476px] md:-m-8 md:flex md:justify-center md:items-start w-full bg-gray-light"}>
+    <div className={"grid h-full w-full place-items-center bg-gray-light"}>
+      <div className={"md:p-0 md:w-[476px] w-[375px] bg-gray-light p-8 font-instrumentSans antialiased"}>
+        <div className={"md: md:px-0 md:h-[91px] md:flex md:justify-center md:items-start w-full bg-gray-light"}>
           <Image src="/images/logo-devlinks-large.svg" alt="Logo" width={182.5} height={40} />
         </div>
 
-        <div className={"md:bg-white "}>
-          <div className={"md:pt-[1 px] space-y-[8px] pt-[64px]"}>
+        <div className={"md:p-8 md:rounded-xl md:bg-white"}>
+          <div className={"md:pt-0 space-y-[8px] pt-[64px]"}>
             <h2 className={"text-left align-top text-[24px] font-bold leading-[150%] text-dark-gray"}>Login</h2>
             <p className={"text-[15.9px] leading-[150%] text-gray"}>Add your details below to get back into the app</p>
           </div>
