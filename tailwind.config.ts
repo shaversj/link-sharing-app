@@ -14,6 +14,7 @@ const config: Config = {
         "purple-light-hover": "#BEADFF",
         "purple-light": "#EFEBFF",
         gray: "#737373",
+        "project-gray": "#737373",
         "dark-gray": "#333333",
         "gray-medium": "#D9D9D9",
         "gray-light": "#FAFAFA",
