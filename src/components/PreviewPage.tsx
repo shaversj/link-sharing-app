@@ -20,11 +20,11 @@ export function PreviewPage({ userId, isAuthenticated }: { userId?: string; isAu
   const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserData = async (endpoint: string, method: "POST" | "GET") => {
+    const fetchUserData = async (endpoint: string, method: "GET") => {
       const routeURL = new URL(`http://localhost:3000/api/user${endpoint}?userId=${userId}`);
       const response = await fetch(routeURL, { method });
       const data = await response.json();
-      if (endpoint === "/links") {
+      if (endpoint === "/link") {
         setLinks(data);
         setIsLoading(false);
       } else {
@@ -33,7 +33,7 @@ export function PreviewPage({ userId, isAuthenticated }: { userId?: string; isAu
       }
     };
     fetchUserData("", "GET");
-    fetchUserData("/links", "POST");
+    fetchUserData("/link", "GET");
   }, []);
 
   if (isUserLoading || isLoading) {
@@ -42,9 +42,9 @@ export function PreviewPage({ userId, isAuthenticated }: { userId?: string; isAu
 
   return (
     <>
-      <div className={"w-[375px] font-instrumentSans"}>
+      <div id={"preview_page"} className={"relative w-[375px] font-instrumentSans"}>
         {isAuthenticated && <Header activePage={"preview"} />}
-        <div className={""}>
+        <div id={"preview_page_profile"} className={""}>
           <div className={"flex flex-col items-center"}>
             <div className={"relative h-[104px] w-[104px] rounded-full border-4"}>
               <Image alt={"Profile Image"} className={"object rounded-full object-cover object-top"} src={user.image || ""} fill={true} />

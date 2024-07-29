@@ -21,11 +21,11 @@ export default function Header({ activePage, userId }: { activePage: string; use
     <>
       {activePage === "preview" ? (
         <>
-          <div className={"flex w-full justify-center gap-x-4 py-4"}>
-            <Link href={`/links/`} className={"grid min-w-[159.5px] place-items-center rounded-lg border border-purple py-[11px] font-semibold leading-[150%] text-purple"}>
+          <div className={" md:bg-white md:justify-between md:m-6 md:rounded-xl flex justify-center gap-x-4 py-4"}>
+            <Link href={`/links/`} className={"md:ml-6 grid min-w-[159.5px] place-items-center rounded-lg border border-purple py-[11px] font-semibold leading-[150%] text-purple"}>
               Back to Editor
             </Link>
-            <button onClick={handleCopyURLClick} className={"flex min-w-[159.5px] justify-center rounded-lg border border-purple bg-purple py-[11px] leading-[150%] text-white"}>
+            <button onClick={handleCopyURLClick} className={"md:mr-[18px] flex min-w-[159.5px] justify-center rounded-lg border border-purple bg-purple py-[11px] leading-[150%] text-white"}>
               Share Link
             </button>
           </div>
