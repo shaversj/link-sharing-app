@@ -1,11 +1,15 @@
 import { integer, sqliteTable, text, primaryKey, blob } from "drizzle-orm/sqlite-core";
-import { drizzle, BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
-import Database from "better-sqlite3";
 import type { AdapterAccountType } from "next-auth/adapters";
 import { InferInsertModel } from "drizzle-orm";
 
-const sqlite = new Database("sqlite.db");
-export const db: BetterSQLite3Database = drizzle(sqlite);
+import { drizzle } from "drizzle-orm/libsql";
+import { createClient } from "@libsql/client";
+
+const client = createClient({
+  url: process.env.NEXT_TURSO_DB_URL,
+  authToken: process.env.NEXT_TURSO_DB_AUTH_TOKEN,
+});
+export const db = drizzle(client);
 
 export type SiteLink = InferInsertModel<typeof links>;
 

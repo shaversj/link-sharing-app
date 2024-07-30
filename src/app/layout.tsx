@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${instrumentSans.variable} md:h-[1024px] md:w-[768px] bg-gray-light font-instrumentSans`}>
+      <body className={`${instrumentSans.variable} md:h-[1024px] md:w-[768px] mx-auto bg-gray-light font-instrumentSans`}>
         <Toaster
           position={"bottom-center"}
           toastOptions={{
