@@ -8,6 +8,8 @@ import { generateSessionToken } from "@/lib/utils";
 import { randomUUID } from "node:crypto";
 
 function saltAndHashPassword(password: string) {
+  // Create a salted hash of the password
+  const saltedPassword = password + process.env.SALT;
   return password;
 }
 

@@ -3,6 +3,41 @@
 import { accounts, db, links, sessions, SiteLink, sites, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcrypt";
+import { randomUUID } from "node:crypto";
+
+export async function registerUser(user: any) {
+  if (!user.email) {
+    return {
+      error: "Email is required",
+    };
+  }
+
+  if (user.password.length < 8) {
+    return {
+      error: "Password must be at least 8 characters",
+    };
+  }
+
+  const saltRounds = 10;
+  const passwordHash = bcrypt.hashSync(user.password, saltRounds);
+
+  const accountId = randomUUID();
+  await createUser({
+    id: accountId,
+    email: user.email,
+    password: passwordHash,
+  });
+
+  await createAccount({
+    userId: accountId,
+    type: "credentials",
+    provider: "credentials",
+    providerAccountId: accountId,
+  });
+
+  return { success: true };
+}
 
 export async function getUserByEmail(email: string) {
   return await db.select().from(users).where(eq(users.email, email)).execute();

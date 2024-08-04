@@ -4,7 +4,7 @@ export type InputProps = {
   label: string;
   iconPath: string | undefined;
   type: string;
-  name: string;
+  name?: string | undefined | null | "";
   placeholder: string;
   value?: string;
 };
@@ -20,7 +20,11 @@ export default function Input({ label, iconPath, type, name, placeholder, value 
       <label className={"text-left align-top text-[12px] leading-[150%] text-dark-gray"}>{label}</label>
       <div className={"relative"}>
         <div className={"absolute inset-y-0 left-0 flex items-center pl-3"}>{iconPath && <Image className={""} src={iconPath} alt={type} width={16} height={16} />}</div>
-        <input className={`${iconPath ? baseClassVariants["withIcon"] : baseClassVariants["withoutIcon"]} `} type={type} name={name} placeholder={placeholder} defaultValue={value} />
+        {name ? (
+          <input className={`${iconPath ? baseClassVariants["withIcon"] : baseClassVariants["withoutIcon"]} `} type={type} name={name} placeholder={placeholder} defaultValue={value} />
+        ) : (
+          <input className={`${iconPath ? baseClassVariants["withIcon"] : baseClassVariants["withoutIcon"]} `} type={type} placeholder={placeholder} defaultValue={value} />
+        )}
       </div>
     </div>
   );
