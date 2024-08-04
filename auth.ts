@@ -3,53 +3,104 @@ import GitHub from "@auth/core/providers/github";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db/schema";
 import Credentials from "@auth/core/providers/credentials";
-import { getUser } from "@/components/actions";
+import { createAccount, createUser, createUserSession, getUserByEmail } from "@/components/actions";
+import { generateSessionToken } from "@/lib/utils";
+import { randomUUID } from "node:crypto";
+
+function saltAndHashPassword(password: string) {
+  return password;
+}
+
+const session = {
+  // strategy: "database",
+  maxAge: 30 * 24 * 60 * 60, // 30 days
+  updateAge: 24 * 60 * 60, // 24 hours
+};
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: DrizzleAdapter(db),
-  providers: [
-    GitHub,
-    /*    Credentials({
-      credentials: {
-        email: {},
-        password: {},
-      },
-      authorize: async (credentials) => {
-        let user = null;
-
-        console.log("yes", credentials);
-
-        // logic to verify if user exists
-        if (typeof credentials.email === "string") {
-          user = await getUserFromDb(credentials.email);
-        }
-
-        if (!user) {
-          throw new Error("User not found.");
-        }
-
-        console.log(user);
-
-        return user ? user[0] : null;
-      },
-    }),*/
-  ],
   pages: {
     signIn: "/login",
   },
-  /*  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        // User is available during sign-in
-        token.id = user.id;
+  jwt: {
+    encode({ token }) {
+      // This is the string returned from the `jwt` callback.
+      // It represents the session token that will be set in the browser.
+      // https://github.com/nextauthjs/next-auth/discussions/4394#discussioncomment-7696263
+      if (token && token.id) {
+        return token.id as unknown as string;
       }
-      return token;
+      return "";
     },
-    session({ session, token }) {
-      if (typeof token.id === "string") {
-        session.user.id = token.id;
-      }
+    async decode() {
+      // Disable default JWT decoding.
+      // This method is really only used when using the email provider.
+      return null;
+    },
+  },
+  session: {
+    strategy: "database",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    generateSessionToken: () => generateSessionToken(),
+  },
+  adapter: DrizzleAdapter(db),
+  providers: [
+    GitHub({
+      allowDangerousEmailAccountLinking: true,
+    }),
+    Credentials({
+      credentials: {
+        email: {},
+        password: {},
+        callbackUrl: {},
+      },
+      authorize: async (credentials) => {
+        try {
+          let user = await getUserByEmail(credentials.email as string);
+          if (!user.length) {
+            const accountId = randomUUID();
+            await createUser({
+              id: accountId,
+              email: credentials.email as string,
+              password: saltAndHashPassword(credentials.password as string),
+            });
+            await createAccount({
+              userId: accountId,
+              type: "credentials",
+              provider: "credentials",
+              providerAccountId: accountId,
+            });
+            user = await getUserByEmail(credentials.email as string);
+          }
+          return {
+            id: user[0]?.id,
+            name: user[0]?.name,
+            email: user[0]?.email,
+            image: user[0]?.image,
+          };
+        } catch (error) {
+          console.log("Custom Error", error);
+        }
+        return null;
+      },
+    }),
+  ],
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return "/links";
+    },
+    async session({ session, token, user }) {
+      // Make our own custom session object.
       return session;
     },
-  },*/
+    async jwt({ token, user, account }) {
+      // Override default jwt callback behavior.
+      // Create a session instead and then return that session token for use in the `jwt.encode`.
+
+      if (account?.provider !== "credentials") return token;
+      const sessionToken = generateSessionToken();
+      const sessionExpiry = new Date(Date.now() + session.maxAge * 1000);
+      await createUserSession(sessionToken, user.id as string, sessionExpiry);
+      return { id: sessionToken };
+    },
+  },
 });

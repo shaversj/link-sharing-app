@@ -12,9 +12,9 @@ export default function RegisterPage() {
 
       <form className={"pt-[40px]"}>
         <div className={"space-y-[24px]"}>
-          <Input label="Email address" iconVariant="email" type="email" name="email" placeholder="e.g. alex@email.com" />
-          <Input label="Create password" iconVariant="password" type="password" name="password" placeholder="At least 8 characters" />
-          <Input label="Confirm password" iconVariant="password" type="password" name="password" placeholder="Enter your password" />
+          <Input label="Email address" iconPath="/images/icon-email.svg" type="email" name="email" placeholder="e.g. alex@email.com" />
+          <Input label="Create password" iconPath="/images/icon-password.svg" type="password" name="password" placeholder="At least 8 characters" />
+          <Input label="Confirm password" iconPath="/images/icon-password.svg" type="password" name="password" placeholder="Enter your password" />
           <p className={"text-[12px] leading-[150%] text-gray"}>Password must contain at least 8 characters</p>
           <button className={"w-full rounded-md bg-purple px-[27px] py-[11px] align-top text-[16px] font-bold leading-[150%] text-white"} type="submit">
             Create new account

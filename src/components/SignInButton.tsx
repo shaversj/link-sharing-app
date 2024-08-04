@@ -8,7 +8,7 @@ export default function SignInButton() {
         className={"py-5"}
         action={async () => {
           "use server";
-          await signIn("github", { redirectTo: "/details" });
+          await signIn("github", { redirectTo: "/links" });
         }}
       >
         <button className={"flex w-full justify-center gap-x-4 rounded-md bg-black py-[11px] pl-2 align-top text-[16px] font-bold leading-[150%] text-white"} type="submit">

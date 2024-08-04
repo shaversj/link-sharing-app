@@ -52,7 +52,7 @@ export function PreviewPage({ userId, isAuthenticated }: { userId?: string; isAu
             <h1 className={"text-[32px] font-bold leading-[150%]"}>{user && user.name}</h1>
             <h2 className={"leading-[150%] text-gray"}>{user && user.email}</h2>
           </div>
-          {links && <SiteLinkList links={links} />}
+          {links.length > 0 && <SiteLinkList links={links} />}
         </div>
       </div>
     </>

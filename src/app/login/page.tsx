@@ -25,7 +25,12 @@ export default function LoginPage() {
             className={"pt-[40px]"}
             action={async (formData) => {
               "use server";
-              await signIn("credentials", formData);
+              console.log("formData", formData);
+              await signIn("credentials", {
+                email: formData.get("email") as string,
+                password: formData.get("password") as string,
+                callbackUrl: "http://localhost:3000/links",
+              });
             }}
           >
             <div className={"space-y-[24px]"}>

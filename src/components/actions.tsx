@@ -1,8 +1,24 @@
 "use server";
 
-import { db, links, SiteLink, sites, users } from "@/db/schema";
+import { accounts, db, links, sessions, SiteLink, sites, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
+
+export async function getUserByEmail(email: string) {
+  return await db.select().from(users).where(eq(users.email, email)).execute();
+}
+
+export async function createUserSession(sessionToken: string, userId: string, expires: Date) {
+  return await db.insert(sessions).values([{ sessionToken, userId, expires }]).execute();
+}
+
+export async function createUser(user: any) {
+  return await db.insert(users).values([user]).execute();
+}
+
+export async function createAccount(user: any) {
+  return await db.insert(accounts).values(user).execute();
+}
 
 export async function getUser(id: string) {
   const result = await db.select().from(users).where(eq(users.id, id)).execute();
