@@ -2,6 +2,7 @@ import Image from "next/image";
 import Input from "@/components/Input";
 import SignInButton from "@/components/SignInButton";
 import { signIn } from "../../../auth";
+import { AuthError } from "next-auth";
 
 export default function LoginPage() {
   return (
@@ -25,12 +26,25 @@ export default function LoginPage() {
             className={"pt-[40px]"}
             action={async (formData) => {
               "use server";
-              console.log("formData", formData);
-              await signIn("credentials", {
-                email: formData.get("email") as string,
-                password: formData.get("password") as string,
-                callbackUrl: "http://localhost:3000/links",
-              });
+
+              try {
+                await signIn("credentials", {
+                  email: formData.get("email") as string,
+                  password: formData.get("password") as string,
+                  callbackUrl: "http://localhost:3000/links",
+                });
+              } catch (error) {
+                if (error instanceof AuthError) {
+                  console.log(error.type);
+                  switch (error.type) {
+                    case "CredentialsSignin":
+                      return "Invalid credentials.";
+                    default:
+                      return "Something went wrong.";
+                  }
+                }
+                throw error;
+              }
             }}
           >
             <div className={"space-y-[24px]"}>

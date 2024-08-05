@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import GitHub from "@auth/core/providers/github";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db/schema";
@@ -6,6 +6,7 @@ import Credentials from "@auth/core/providers/credentials";
 import { createAccount, createUser, createUserSession, getUserByEmail } from "@/components/actions";
 import { generateSessionToken } from "@/lib/utils";
 import { randomUUID } from "node:crypto";
+import bcrypt from "bcrypt";
 
 function saltAndHashPassword(password: string) {
   // Create a salted hash of the password
@@ -18,6 +19,16 @@ const session = {
   maxAge: 30 * 24 * 60 * 60, // 30 days
   updateAge: 24 * 60 * 60, // 24 hours
 };
+
+class UserNotFound extends CredentialsSignin {
+  code = "UserNotFound";
+}
+class InvalidCredentials extends CredentialsSignin {
+  code = "InvalidCredentials";
+}
+class PasswordNotSet extends CredentialsSignin {
+  code = "PasswordNotSet";
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -56,33 +67,59 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         callbackUrl: {},
       },
       authorize: async (credentials) => {
-        try {
-          let user = await getUserByEmail(credentials.email as string);
-          if (!user.length) {
-            const accountId = randomUUID();
-            await createUser({
-              id: accountId,
-              email: credentials.email as string,
-              password: saltAndHashPassword(credentials.password as string),
-            });
-            await createAccount({
-              userId: accountId,
-              type: "credentials",
-              provider: "credentials",
-              providerAccountId: accountId,
-            });
-            user = await getUserByEmail(credentials.email as string);
-          }
-          return {
-            id: user[0]?.id,
-            name: user[0]?.name,
-            email: user[0]?.email,
-            image: user[0]?.image,
-          };
-        } catch (error) {
-          console.log("Custom Error", error);
+        if (!credentials.email || !credentials.password) {
+          throw new InvalidCredentials();
         }
-        return null;
+
+        let user = await getUserByEmail(credentials.email as string);
+        if (!user.length) {
+          throw new UserNotFound();
+        }
+
+        const userPassword = user[0].password;
+
+        // Compare the password from the database with the password from the form.
+        if (userPassword && credentials.password) {
+          if (!bcrypt.compareSync(credentials.password as string, userPassword)) {
+            throw new InvalidCredentials();
+          }
+        }
+
+        return {
+          id: user[0]?.id,
+          name: user[0]?.name,
+          email: user[0]?.email,
+          image: user[0]?.image,
+        };
+
+        // try {
+        //   let user = await getUserByEmail(credentials.email as string);
+        //   if (!user.length) {
+        //     const accountId = randomUUID();
+        //     await createUser({
+        //       id: accountId,
+        //       email: credentials.email as string,
+        //       password: saltAndHashPassword(credentials.password as string),
+        //     });
+        //     await createAccount({
+        //       userId: accountId,
+        //       type: "credentials",
+        //       provider: "credentials",
+        //       providerAccountId: accountId,
+        //     });
+        //     user = await getUserByEmail(credentials.email as string);
+        //   }
+        //   return {
+        //     id: user[0]?.id,
+        //     name: user[0]?.name,
+        //     email: user[0]?.email,
+        //     image: user[0]?.image,
+        //   };
+        // } catch (error) {
+        //   console.log("Custom Error", error);
+        // }
+
+        // return null;
       },
     }),
   ],

@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Input from "@/components/Input";
 import { registerUser } from "@/components/actions";
-import { useActionState } from "react";
-import { useFormStatus, useFormState } from "react-dom";
 const initialState = {
   message: "",
   success: false,
