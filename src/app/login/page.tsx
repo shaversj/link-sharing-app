@@ -2,7 +2,8 @@ import Image from "next/image";
 import Input from "@/components/Input";
 import SignInButton from "@/components/SignInButton";
 import { signIn } from "../../../auth";
-import { AuthError } from "next-auth";
+import { CredentialsSignin } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default function LoginPage() {
   return (
@@ -34,14 +35,8 @@ export default function LoginPage() {
                   callbackUrl: "http://localhost:3000/links",
                 });
               } catch (error) {
-                if (error instanceof AuthError) {
-                  console.log(error.type);
-                  switch (error.type) {
-                    case "CredentialsSignin":
-                      return "Invalid credentials.";
-                    default:
-                      return "Something went wrong.";
-                  }
+                if (error instanceof CredentialsSignin) {
+                  return redirect(`https://localhost:3000/error?error=${error.code}`);
                 }
                 throw error;
               }
