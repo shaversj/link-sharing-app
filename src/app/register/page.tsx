@@ -1,10 +1,6 @@
 import Image from "next/image";
 import Input from "@/components/Input";
 import { registerUser } from "@/components/actions";
-const initialState = {
-  message: "",
-  success: false,
-};
 
 export default function RegisterPage() {
   return (
@@ -12,7 +8,7 @@ export default function RegisterPage() {
       <Image src="/images/logo-devlinks-large.svg" alt="Logo" width={182.5} height={40} />
       <div className={"space-y-[8px] pt-[64px]"}>
         <h2 className={"text-left align-top text-[24px] font-bold leading-[150%] text-dark-gray"}>Create account</h2>
-        <p className={"text-[15.9px] leading-[150%] text-gray"}>Let's get you started sharing your links!</p>
+        <p className={"text-[15.9px] leading-[150%] text-gray"}>Let&#39;s get you started sharing your links!</p>
       </div>
 
       <form

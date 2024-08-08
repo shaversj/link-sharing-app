@@ -49,7 +49,7 @@ export default function LoginPage() {
                 Login
               </button>
               <div className={"text-center text-[16px] leading-[150%]"}>
-                <p className={"text-gray"}>Don't have an account?</p>
+                <p className={"text-gray"}>Don&#39;t have an account?</p>
                 <a className={"text-purple"} href="/register">
                   Create account
                 </a>

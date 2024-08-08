@@ -72,9 +72,9 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
                 <Image src="/images/illustration-empty.svg" className={"md:hidden mx-auto"} width={124.77} height={80} alt="Add" />
                 <Image src="/images/illustration-empty.svg" className={"md:block mx-auto hidden"} width={249.53} height={160} alt="Add" />
                 <div className={"md:mx-auto md:w-[488px]"}>
-                  <h2 className={"md:text-[2rem] text-center text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Let's get you started</h2>
+                  <h2 className={"md:text-[2rem] text-center text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Let&#39;s get you started</h2>
                   <p className={"md:text-[1rem] pt-6 text-center text-[0.994rem] leading-[150%] text-gray"}>
-                    Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We're here to help you share your profiles with everyone!
+                    Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We&#39;re here to help you share your profiles with everyone!
                   </p>
                 </div>
               </div>
