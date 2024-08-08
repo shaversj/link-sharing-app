@@ -32,11 +32,11 @@ export default function LoginPage() {
                 await signIn("credentials", {
                   email: formData.get("email") as string,
                   password: formData.get("password") as string,
-                  callbackUrl: "http://localhost:3000/links",
+                  callbackUrl: `${process.env.NEXT_APP_URL}links`,
                 });
               } catch (error) {
                 if (error instanceof CredentialsSignin) {
-                  return redirect(`https://localhost:3000/error?error=${error.code}`);
+                  return redirect(`${process.env.NEXT_APP_URL}error?error=${error.code}`);
                 }
                 throw error;
               }

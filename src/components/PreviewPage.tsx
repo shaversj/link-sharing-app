@@ -21,7 +21,7 @@ export function PreviewPage({ userId, isAuthenticated }: { userId?: string; isAu
 
   useEffect(() => {
     const fetchUserData = async (endpoint: string, method: "GET") => {
-      const routeURL = new URL(`http://localhost:3000/api/user${endpoint}?userId=${userId}`);
+      const routeURL = new URL(`${process.env.NEXT_APP_URL}api/user${endpoint}?userId=${userId}`);
       const response = await fetch(routeURL, { method });
       const data = await response.json();
       if (endpoint === "/link") {

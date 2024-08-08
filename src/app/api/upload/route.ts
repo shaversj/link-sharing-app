@@ -8,11 +8,6 @@ export async function POST(request: NextRequest) {
   const file = formData.get("file");
   const userId = formData.get("userId");
 
-  // if (file instanceof Blob) {
-  //   const body = await file.arrayBuffer();
-  //   await saveImage(file, userId as string);
-  // }
-
   try {
     if (file instanceof Blob) {
       const body = await file.arrayBuffer();
@@ -21,11 +16,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error(error);
   }
-  // revalidatePath("/profile");
-  // redirect("/profile");
-  // return Response.redirect("/profile/");
-  revalidatePath("http://localhost:3000/profile");
-  redirect("http://localhost:3000/profile");
 
-  return Response.redirect("http://localhost:3000/profile");
+  revalidatePath(`${process.env.NEXT_APP_URL}profile`);
+  redirect(`${process.env.NEXT_APP_URL}profile`);
 }
