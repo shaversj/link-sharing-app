@@ -93,7 +93,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, account }) {
       // Override default jwt callback behavior.
       // Create a session instead and then return that session token for use in the `jwt.encode`.
-      console.log("jwt callback", token, user, account);
+      console.error("jwt callback", token, user, account);
       if (account?.provider !== "credentials") return token;
       const sessionToken = generateSessionToken();
       const sessionExpiry = new Date(Date.now() + session.maxAge * 1000);
