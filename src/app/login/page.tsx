@@ -6,6 +6,8 @@ import { CredentialsSignin } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default function LoginPage() {
+  console.log("yes");
+  console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
   return (
     <div className={"grid h-full w-full place-items-center bg-gray-light"}>
       <div className={"md:p-0 md:w-[476px] w-[375px] bg-gray-light p-8 font-instrumentSans antialiased"}>
