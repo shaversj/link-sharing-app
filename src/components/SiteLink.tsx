@@ -16,7 +16,7 @@ export default function SiteLink({ siteName, linkData }: { siteName: string; lin
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    const routeURL = new URL(`${process.env.NEXT_APP_URL}api/user/site?siteName=` + siteName);
+    const routeURL = new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/user/site?siteName=` + siteName);
     fetch(routeURL)
       .then((res) => res.json())
       .then((data) => {

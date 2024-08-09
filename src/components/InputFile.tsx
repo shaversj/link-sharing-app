@@ -10,11 +10,11 @@ export default function InputFile({ userId }: { userId?: string }) {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("userId", userId || "");
-    fetch(`${process.env.NEXT_APP_URL}api/upload`, {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/upload`, {
       method: "POST",
       body: formData,
     });
-    redirect(`${process.env.NEXT_APP_URL}profile`);
+    redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}profile`);
   }
   return (
     <>

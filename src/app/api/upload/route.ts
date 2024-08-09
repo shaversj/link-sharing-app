@@ -17,6 +17,6 @@ export async function POST(request: NextRequest) {
     console.error(error);
   }
 
-  revalidatePath(`${process.env.NEXT_APP_URL}profile`);
-  redirect(`${process.env.NEXT_APP_URL}profile`);
+  revalidatePath(`${process.env.NEXT_PUBLIC_BACKEND_URL}profile`);
+  redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}profile`);
 }

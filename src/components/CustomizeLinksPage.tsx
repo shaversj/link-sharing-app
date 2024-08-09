@@ -20,7 +20,7 @@ export type dispatchProps = (action: Action) => void;
 
 export default function CustomizeLinksPage({ userId }: { userId: string }) {
   async function getLinksfromDB() {
-    const routeURL = new URL(`${process.env.NEXT_APP_URL}api/user/link?userId=` + userId);
+    const routeURL = new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/user/link?userId=` + userId);
     return await fetch(routeURL);
   }
 
