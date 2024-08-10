@@ -59,7 +59,7 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
               onClick={() =>
                 dispatch({
                   type: "add",
-                  payload: { id: uuidv4(), name: "", userId: userId, url: "" },
+                  payload: { id: uuidv4(), name: "GitHub", userId: userId, url: "" },
                 })
               }
               className={"mt-[2.5rem] w-full rounded-md border border-purple px-[1.688rem] py-[0.688rem] text-[1rem] font-bold leading-[150%] text-purple"}
