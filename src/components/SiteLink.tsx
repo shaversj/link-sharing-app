@@ -47,6 +47,7 @@ export default function SiteLink({ siteName, linkData }: { siteName: string; lin
     ee3939: "bg-[#ee3939]",
   };
 
+  console.log("SiteName: ", siteName);
   console.log(platform);
   console.log(containerStyle);
 
