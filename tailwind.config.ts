@@ -2,6 +2,21 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
+  safelist: [
+    "bg-[#1a1a1a]",
+    "bg-[#43b7e9]",
+    "bg-[#2d68ff]",
+    "bg-black",
+    "bg-[#8a1a50]",
+    "bg-[#333333]",
+    "bg-[#2442ac]",
+    "bg-[#302267]",
+    "bg-[#ffffff]",
+    "bg-[#eb4a25]",
+    "bg-[#0330d1]",
+    "bg-[$ed3fc8]",
+    "bg-[#ee3939]",
+  ],
   theme: {
     screens: {
       sm: "375px",

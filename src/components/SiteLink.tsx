@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { platformSites } from "@/constants/platformConstants";
-import { platformBackgroundColors } from "@/constants/platformConstants";
 
 export type Site = {
   id: number | null;
