@@ -1,7 +1,11 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { deleteAllLinks, getLinks, removeAndUpdateLinks } from "@/components/actions";
+import { auth } from "../../../../../auth";
 
 export async function PUT(request: NextRequest) {
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+
   const searchParams = request.nextUrl.searchParams;
   const userId = searchParams.get("userId");
   const links = await getLinks(userId || "");
@@ -14,6 +18,9 @@ export async function PUT(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+
   const searchParams = request.nextUrl.searchParams;
   const userId = searchParams.get("userId");
   await deleteAllLinks(userId || "");
@@ -21,6 +28,9 @@ export async function DELETE(request: NextRequest) {
 }
 
 export async function POST(request: Request) {
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+
   const res = await request.json();
   await deleteAllLinks(res.userId || "");
   await removeAndUpdateLinks(res.userId || "", res.links);
