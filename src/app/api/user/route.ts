@@ -1,9 +1,11 @@
 import { getUser } from "@/components/actions";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "../../../../auth";
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const userId = searchParams.get("userId");
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
 
-  return Response.json(await getUser(userId || ""));
+  const userId = request.nextUrl.searchParams.get("userId");
+  return NextResponse.json(await getUser(userId || ""));
 }
