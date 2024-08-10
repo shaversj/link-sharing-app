@@ -47,7 +47,7 @@ export function PreviewPage({ userId, isAuthenticated }: { userId?: string; isAu
         <div id={"preview_page_profile"} className={""}>
           <div className={"flex flex-col items-center"}>
             <div className={"relative h-[104px] w-[104px] rounded-full border-4"}>
-              <Image alt={"Profile Image"} className={"object rounded-full object-cover object-top"} src={user.image || ""} fill={true} />
+              <Image alt={"Profile Image"} className={user.image ? "object rounded-full object-cover object-top" : "object rounded-full bg-black"} src={user.image || ""} fill={true} />
             </div>
             <h1 className={"text-[32px] font-bold leading-[150%]"}>{user && user.name}</h1>
             <h2 className={"leading-[150%] text-gray"}>{user && user.email}</h2>

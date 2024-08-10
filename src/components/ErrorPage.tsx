@@ -5,6 +5,7 @@ import Link from "next/link";
 
 enum Error {
   InvalidCredentials = "InvalidCredentials",
+  NotAuthenticated = "NotAuthenticated",
 }
 
 const errorMap = {
@@ -15,6 +16,15 @@ const errorMap = {
         <span className={"font-bold text-purple"}>login</span> again.
       </Link>
       .
+    </p>
+  ),
+  [Error.NotAuthenticated]: (
+    <p>
+      You are not authenticated. Please{" "}
+      <Link href="/login">
+        <span className={"font-bold text-purple"}>login</span>
+      </Link>{" "}
+      to continue.
     </p>
   ),
 };

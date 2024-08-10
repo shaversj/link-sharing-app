@@ -1,12 +1,14 @@
 import Image from "next/image";
+import { redirect } from "next/navigation";
+import { auth } from "../../../auth";
 import Input from "@/components/Input";
 import Header from "@/components/Header";
-import { auth } from "../../../auth";
+
 import InputFile from "@/components/InputFile";
 
 export default async function Details() {
   const session = await auth();
-  if (!session?.user) return <div>Not authenticated</div>;
+  if (!session?.user) return redirect(`${process.env.NEXT_PUBLIC_BACKEND_URL}error?error=NotAuthenticated`);
 
   const [firstName, lastName] = session.user.name?.split(" ") || ["", ""];
 
