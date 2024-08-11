@@ -1,5 +1,3 @@
-"use client";
-
 import SiteLink from "@/components/SiteLink";
 
 export default function SiteLinkList({ links }: any) {
