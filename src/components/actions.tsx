@@ -6,6 +6,16 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import { randomUUID } from "node:crypto";
 
+export async function updateUser(user: any) {
+  // get firstName, lastName, email from URL
+
+  console.log(user);
+  // const existingUser = await getUser(user.id);
+  // if (existingUser) {
+  //   await db.update(users).set(user).where(eq(users.id, user.id)).execute();
+  // }
+}
+
 export async function registerUser(user: any) {
   if (!user.email) {
     return {
