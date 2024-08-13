@@ -11,8 +11,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    data.id = user.id;
-    await updateUser(data);
+    await updateUser({ id: user.id, name: data.firstName + " " + data.lastName });
   };
 
   return (
