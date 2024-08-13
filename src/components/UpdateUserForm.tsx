@@ -1,11 +1,14 @@
 "use client";
 
-import { updateUser } from "@/components/actions";
+import { getUser, updateUser } from "@/components/actions";
 import Image from "next/image";
 import InputFile from "@/components/InputFile";
 import Input from "@/components/Input";
 
-export default function UpdateUserForm({ user }: { user: any }) {
+export default async function UpdateUserForm({ userId }: { userId: string }) {
+  const user = (await getUser(userId)) as any;
+  const [firstName, lastName] = user.name?.split(" ") || ["", ""];
+
   const updateUserHandler = async (e: any) => {
     e.preventDefault();
     const form = e.target;
@@ -66,8 +69,8 @@ export default function UpdateUserForm({ user }: { user: any }) {
 
           <div className={"mt-[2.5rem] rounded-lg bg-gray-light"}>
             <div className={"space-y-3 p-5"}>
-              <Input label="First name*" iconPath={""} type="text" name="firstName" placeholder="Enter first name.." value={user.firstName} />
-              <Input label="Last name*" iconPath={""} type="text" name="lastName" placeholder="Enter last name..." value={user.lastName} />
+              <Input label="First name*" iconPath={""} type="text" name="firstName" placeholder="Enter first name.." value={firstName} />
+              <Input label="Last name*" iconPath={""} type="text" name="lastName" placeholder="Enter last name..." value={lastName} />
               <Input label="Email" iconPath={""} type="email" name="email" placeholder="e.g. alex@email.com" value={user.email || ""} />
             </div>
           </div>
