@@ -13,13 +13,6 @@ export const db = drizzle(client);
 
 export type SiteLink = InferInsertModel<typeof links>;
 
-export const sites = sqliteTable("site", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  name: text("name"),
-  backgroundColor: text("backgroundColor"),
-  imageLocation: text("imageLocation"),
-});
-
 export const links = sqliteTable("link", {
   id: text("id").primaryKey(),
   userId: text("userId").references(() => users.id, { onDelete: "cascade" }),

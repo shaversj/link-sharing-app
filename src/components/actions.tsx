@@ -1,6 +1,6 @@
 "use server";
 
-import { accounts, db, links, sessions, SiteLink, sites, users } from "@/db/schema";
+import { accounts, db, links, sessions, SiteLink, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
@@ -67,10 +67,6 @@ export async function getUser(id: string) {
     result[0].image = `data:image/${imageType};base64,${base64String}`;
   }
   return result.length > 0 ? result[0] : null;
-}
-
-export async function getSiteByName(name: string) {
-  return await db.select().from(sites).where(eq(sites.name, name)).execute();
 }
 
 export async function updateLinkById(id: string, name: string, url: string) {

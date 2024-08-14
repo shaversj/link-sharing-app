@@ -2,7 +2,7 @@
 
 import { v4 as uuidv4 } from "uuid";
 import LinksList from "@/components/LinksList";
-import useLinkReducer, { Action } from "@/app/hooks/useLinkReducer";
+import useLinkReducer, { Action } from "@/hooks/useLinkReducer";
 import Header from "@/components/Header";
 import { useEffect } from "react";
 import { DndProvider } from "react-dnd";
@@ -49,10 +49,10 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
       <DndProvider backend={HTML5Backend}>
         <Header activePage={"links"} userId={userId} />
         <div className={"mt-4 px-4 antialiased"}>
-          <div className={"md:px-[2.5rem] md:pb-6 md:pt-0 rounded-md bg-white px-6 py-6"}>
-            <div className={"md:pt-[2.5rem] space-y-[0.5rem] "}>
-              <h2 className={"md:text-[2rem] text-left align-top text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Customize your links</h2>
-              <p className={"md:text-[1rem] text-[0.994rem] leading-[150%] text-gray"}>Add/edit/remove links below and then share all your profiles with the world!</p>
+          <div className={"rounded-md bg-white px-6 py-6 md:px-[2.5rem] md:pb-6 md:pt-0"}>
+            <div className={"space-y-[0.5rem] md:pt-[2.5rem] "}>
+              <h2 className={"text-left align-top text-[1.5rem] font-bold leading-[150%] text-dark-gray md:text-[2rem]"}>Customize your links</h2>
+              <p className={"text-[0.994rem] leading-[150%] text-gray md:text-[1rem]"}>Add/edit/remove links below and then share all your profiles with the world!</p>
             </div>
 
             <button
@@ -69,11 +69,11 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
 
             {links.length === 0 && (
               <div className={"mt-6 rounded-xl bg-gray-light px-[6px] py-[46.5px]"}>
-                <Image src="/images/illustration-empty.svg" className={"md:hidden mx-auto"} width={124.77} height={80} alt="Add" />
-                <Image src="/images/illustration-empty.svg" className={"md:block mx-auto hidden"} width={249.53} height={160} alt="Add" />
+                <Image src="/images/illustration-empty.svg" className={"mx-auto md:hidden"} width={124.77} height={80} alt="Add" />
+                <Image src="/images/illustration-empty.svg" className={"mx-auto hidden md:block"} width={249.53} height={160} alt="Add" />
                 <div className={"md:mx-auto md:w-[488px]"}>
-                  <h2 className={"md:text-[2rem] text-center text-[1.5rem] font-bold leading-[150%] text-dark-gray"}>Let&#39;s get you started</h2>
-                  <p className={"md:text-[1rem] pt-6 text-center text-[0.994rem] leading-[150%] text-gray"}>
+                  <h2 className={"text-center text-[1.5rem] font-bold leading-[150%] text-dark-gray md:text-[2rem]"}>Let&#39;s get you started</h2>
+                  <p className={"pt-6 text-center text-[0.994rem] leading-[150%] text-gray md:text-[1rem]"}>
                     Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We&#39;re here to help you share your profiles with everyone!
                   </p>
                 </div>
@@ -82,11 +82,11 @@ export default function CustomizeLinksPage({ userId }: { userId: string }) {
 
             <LinksList links={links} dispatch={dispatch} />
           </div>
-          <div className={"md:flex border border-white border-t-[#d9d9d9] bg-white p-4"}>
+          <div className={"border border-white border-t-[#d9d9d9] bg-white p-4 md:flex"}>
             <button
               onClick={(e) => submitHandler(e)}
               className={
-                "md:px-[27px] md:py-[11px] md:w-[91px] md:h-[46px] md:ml-auto w-full rounded-md bg-[#d8ceff] px-[1.688rem] py-[0.688rem] align-top text-[1rem] font-bold leading-[150%] text-white"
+                "w-full rounded-md bg-[#d8ceff] px-[1.688rem] py-[0.688rem] align-top text-[1rem] font-bold leading-[150%] text-white md:ml-auto md:h-[46px] md:w-[91px] md:px-[27px] md:py-[11px]"
               }
               type="submit"
             >
