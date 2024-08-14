@@ -33,7 +33,7 @@ export default async function UpdateUserForm({ userId }: { userId: string }) {
                 <>
                   <div id={"upload_pic"} className={"relative mt-4 flex flex-col items-center justify-center rounded-md border border-black "}>
                     <label htmlFor={"file"} className={"relative flex h-full w-full flex-col items-center justify-center"}>
-                      <Image src={user.image.startsWith("http") ? user.image : `data:image/png;base64,` + user.image} alt={"Profile Picture"} fill={true} className={"opacity-25"} />
+                      <Image src={user.image} alt={"Profile Picture"} fill={true} className={"opacity-25"} />
                       <div className={"flex flex-col items-center justify-center"}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 40 40">
                           <path
